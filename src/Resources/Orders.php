@@ -4,11 +4,8 @@ namespace kirillbdev\PhpEsputnikClient\Resources;
 
 use GuzzleHttp\Exception\InvalidArgumentException;
 
-class Order extends Resource
+class Orders extends ApiResource
 {
-	public static $ORDER_STATUS_INITIALIZED = 'INITIALIZED';
-	public static $ORDER_STATUS_ABANDONED_SHOPPING_CART = 'ABANDONED_SHOPPING_CART';
-
 	private $data;
 	private $items = [];
 
@@ -21,20 +18,12 @@ class Order extends Resource
 		'email' => 'email' // 2017-05-14T10:11:10.7022176+03:00
 	];
 
-	public function __get($name)
+	public function add($orders)
 	{
-		return $this->data[ $name ] ?? null;
+		$this->client->post('v1/orders', $orders->toJson());
 	}
 
-	public function __set($name, $value)
-	{
-		if ($this->isValidKey($name)) {
-			$this->data[$name] = $value;
-		}
-		else {
-			throw new InvalidArgumentException('Key "' . $name . '" not valid resource key');
-		}
-	}
+
 
 	public function getPath($type)
 	{
@@ -54,11 +43,6 @@ class Order extends Resource
 		}
 
 		return ['orders' => $result];
-	}
-
-	private function isValidKey($key)
-	{
-		return isset($this->keyMapping[$key]);
 	}
 
 	private function mapKey($key)

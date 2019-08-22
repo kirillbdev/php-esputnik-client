@@ -4,7 +4,7 @@ namespace kirillbdev\PhpEsputnikClient;
 
 use GuzzleHttp\Exception\InvalidArgumentException;
 use kirillbdev\PhpEsputnikClient\Http\GuzzleHttpClient;
-use kirillbdev\PhpEsputnikClient\Resources\Resource;
+use kirillbdev\PhpEsputnikClient\Resources\ResourceFactory;
 
 class EsputnikClient
 {
@@ -18,19 +18,17 @@ class EsputnikClient
 		$this->httpClient = new GuzzleHttpClient($login, $password);
 	}
 
-	public function send(Resource $resource)
+	public function resource($name)
 	{
 		if ($this->authenticated()) {
-			$this->httpClient->post($resource->getPath('post'), $resource->getData());
+			return ResourceFactory::make($name, $this->httpClient);
 		}
+
+		throw new InvalidArgumentException('Client not authenticated');
 	}
 
 	private function authenticated()
 	{
-		if ( ! $this->httpClient) {
-			throw new InvalidArgumentException('Client not authenticated');
-		}
-
-		return true;
+		return $this->httpClient !== null;
 	}
 }
