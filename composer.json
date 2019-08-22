@@ -1,0 +1,16 @@
+{
+    "name": "kirillbdev/php-esputnik-client",
+    "description": "Object-oriented layer for the eSputnik API",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "kirillbdev",
+            "email": "kirill.babinec@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
