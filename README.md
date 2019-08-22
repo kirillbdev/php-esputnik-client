@@ -1,0 +1,1 @@
+Defines an object-oriented layer for the eSputnik API.
