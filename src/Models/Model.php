@@ -6,15 +6,14 @@ abstract class Model
 {
 	protected $data;
 
-	private $keyMapping;
+	private $validKeys;
 	private $formatters;
 
-	abstract public function getData();
-	abstract protected function keyMapping();
+	abstract protected function validKeys();
 
 	public function __construct()
 	{
-		$this->keyMapping = $this->keyMapping();
+		$this->validKeys = $this->validKeys();
 		$this->formatters = $this->formatters();
 	}
 
@@ -33,19 +32,19 @@ abstract class Model
 		}
 	}
 
+	public function getData()
+	{
+		return $this->data;
+	}
+
 	protected function formatters()
 	{
 		return [];
 	}
 
-	protected function convertKeyToApiKey($key)
-	{
-		return $this->keyMapping[$key] ?? $key;
-	}
-
 	private function isValidKey($key)
 	{
-		return isset($this->keyMapping[$key]);
+		return in_array($key, $this->validKeys);
 	}
 
 	private function formatValue($key, $value)
