@@ -2,8 +2,6 @@
 
 namespace kirillbdev\PhpEsputnikClient\Models;
 
-use kirillbdev\PhpEsputnikClient\Collections\OrderItemCollection;
-
 /**
  * @property string $externalOrderId
  * @property string $externalCustomerId
@@ -31,26 +29,23 @@ class Order extends Model
 	public static $ORDER_STATUS_INITIALIZED = 'INITIALIZED';
 	public static $ORDER_STATUS_ABANDONED_SHOPPING_CART = 'ABANDONED_SHOPPING_CART';
 
-	private $items;
-
-	public function __construct()
-	{
-		parent::__construct();
-
-		$this->items = new OrderItemCollection();
-	}
+	private $items = [];
 
 	public function getData()
 	{
 		$data = parent::getData();
-		$data = array_merge($data, $this->items->getData());
+		$data['items'] = [];
+
+		foreach ($this->items as $item) {
+			$data['items'][] = $item->getData();
+		}
 
 		return $data;
 	}
 
 	public function addItem(OrderItem $item)
 	{
-		$this->items->addModel($item);
+		$this->items[] = $item;
 	}
 
 	protected function validKeys()
