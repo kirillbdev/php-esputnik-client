@@ -7,27 +7,53 @@ class Order extends Model
 	public static $ORDER_STATUS_INITIALIZED = 'INITIALIZED';
 	public static $ORDER_STATUS_ABANDONED_SHOPPING_CART = 'ABANDONED_SHOPPING_CART';
 
-	public function __get($name)
-	{
-		return $this->data[ $name ] ?? null;
-	}
+	private $items = [];
 
-	public function __set($name, $value)
+	public function getData()
 	{
-		if ($this->isValidKey($name)) {
-			$this->data[$name] = $value;
+		$data = [];
+
+		foreach ($this->data as $key => $value) {
+			$data[$this->convertKeyToApiKey($key)] = $value;
 		}
-		else {
-			throw new InvalidArgumentException('Key "' . $name . '" not valid resource key');
-		}
+
+		$data['items'] = $this->items;
+
+		return $data;
 	}
 
-	private function isValidKey($key)
+	protected function keyMapping()
 	{
-		return isset($this->keyMapping[$key]);
+		return [
+			'id'            => 'externalOrderId',
+			'customer_id'   => 'externalCustomerId',
+			'total'         => 'totalCost',
+			'status'        => 'status',
+			'date'          => 'date',
+			'email'         => 'email'
+		];
 	}
 
-	public function toJson()
+	protected function formatters()
 	{
+		return [
+			'date' => [ $this, 'formatDate' ]
+		];
+	}
+
+	/**
+	 * @param \DateTime $datetime
+	 *
+	 * @return string
+	 */
+	public function formatDate($datetime)
+	{
+		$timestamp = $datetime->getTimestamp();
+
+		return sprintf(
+			'%sT%s',
+			date('Y-m-d', $timestamp),
+			date('H:i:s.uP', $timestamp)
+		);
 	}
 }
