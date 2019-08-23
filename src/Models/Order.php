@@ -34,14 +34,10 @@ class Order extends Model
 
 	private $items = [];
 
-	public function getData()
+	public function jsonSerialize()
 	{
-		$data = parent::getData();
-		$data['items'] = [];
-
-		foreach ($this->items as $item) {
-			$data['items'][] = $item->getData();
-		}
+		$data = parent::jsonSerialize();
+		$data['items'] = $this->items;
 
 		return $data;
 	}

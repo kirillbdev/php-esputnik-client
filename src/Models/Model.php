@@ -2,7 +2,7 @@
 
 namespace kirillbdev\PhpEsputnikClient\Models;
 
-abstract class Model
+abstract class Model implements \JsonSerializable
 {
 	protected $data;
 
@@ -32,7 +32,7 @@ abstract class Model
 		}
 	}
 
-	public function getData()
+	public function jsonSerialize()
 	{
 		return $this->data;
 	}

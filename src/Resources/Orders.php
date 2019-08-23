@@ -2,21 +2,19 @@
 
 namespace kirillbdev\PhpEsputnikClient\Resources;
 
-use kirillbdev\PhpEsputnikClient\Collections\OrderCollection;
-use kirillbdev\PhpEsputnikClient\Models\Order;
-
 class Orders extends ApiResource
 {
 	public function add($orders)
 	{
-		if ($orders instanceof Order) {
-			$orderCollection = new OrderCollection();
-			$orderCollection->addModel($orders);
+		if ( ! is_array($orders)) {
+			$orderCollection = [ $orders ];
 		}
 		else {
 			$orderCollection = $orders;
 		}
 
-		$this->client->post('v1/orders', $orderCollection->getData());
+		$this->client->post('v1/orders', [
+			'orders' => $orderCollection
+		]);
 	}
 }
