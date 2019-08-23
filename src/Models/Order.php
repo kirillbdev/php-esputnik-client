@@ -27,6 +27,9 @@ namespace kirillbdev\PhpEsputnikClient\Models;
 class Order extends Model
 {
 	public static $ORDER_STATUS_INITIALIZED = 'INITIALIZED';
+	public static $ORDER_STATUS_IN_PROGRESS = 'IN_PROGRESS';
+	public static $ORDER_STATUS_DELIVERED = 'DELIVERED';
+	public static $ORDER_STATUS_CANCELLED = 'CANCELLED';
 	public static $ORDER_STATUS_ABANDONED_SHOPPING_CART = 'ABANDONED_SHOPPING_CART';
 
 	private $items = [];
