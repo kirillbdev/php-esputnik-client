@@ -30,6 +30,9 @@ class GuzzleHttpClient extends HttpClient
 			'json' => $data
 		]);
 
-		return $response->getBody();
+		return [
+			'code' => $response->getStatusCode(),
+			'body' => $response->getBody()
+		];
 	}
 }

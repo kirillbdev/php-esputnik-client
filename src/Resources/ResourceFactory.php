@@ -2,8 +2,6 @@
 
 namespace kirillbdev\PhpEsputnikClient\Resources;
 
-use GuzzleHttp\Exception\InvalidArgumentException;
-
 class ResourceFactory
 {
 	public static function make($name, $client)
@@ -17,6 +15,6 @@ class ResourceFactory
 				return new Event($client);
 		}
 
-		throw new InvalidArgumentException('Undefined resource name.');
+		throw new \InvalidArgumentException('Undefined resource name.');
 	}
 }
