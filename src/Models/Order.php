@@ -23,6 +23,7 @@ namespace kirillbdev\PhpEsputnikClient\Models;
  * @property string $deliveryMethod
  * @property string $paymentMethod
  * @property string $deliveryAddress
+ * @property array $additionalInfo
  */
 class Order extends Model
 {
@@ -69,7 +70,8 @@ class Order extends Model
 			'source',
 			'deliveryMethod',
 			'paymentMethod',
-			'deliveryAddress'
+			'deliveryAddress',
+			'additionalInfo'
 		];
 	}
 
