@@ -20,7 +20,7 @@ class Event extends ApiResource
 
 	public function generate($event, $key)
 	{
-		echo $this->client->post('v1/event', [
+		return $this->client->post('v1/event', [
 			'eventTypeKey' => $event,
 			'keyValue' => $key,
 			'params' => $this->params

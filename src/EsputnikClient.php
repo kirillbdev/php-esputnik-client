@@ -2,7 +2,6 @@
 
 namespace kirillbdev\PhpEsputnikClient;
 
-use GuzzleHttp\Exception\InvalidArgumentException;
 use kirillbdev\PhpEsputnikClient\Http\GuzzleHttpClient;
 use kirillbdev\PhpEsputnikClient\Resources\ResourceFactory;
 
@@ -24,7 +23,7 @@ class EsputnikClient
 			return ResourceFactory::make($name, $this->httpClient);
 		}
 
-		throw new InvalidArgumentException('Client not authenticated');
+		throw new \InvalidArgumentException('Client not authenticated');
 	}
 
 	private function authenticated()
