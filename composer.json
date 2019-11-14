@@ -12,5 +12,10 @@
             "email": "kirill.babinec@gmail.com"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "autoload": {
+      "psr-4": {
+        "kirillbdev\\PhpEsputnikClient\\": "src/"
+      }
+    }
 }
