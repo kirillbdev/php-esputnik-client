@@ -22,8 +22,6 @@ class GuzzleHttpClient extends HttpClient
 
 	public function post($path, $data)
 	{
-		file_put_contents(base_path('esputnik.request.log'), json_encode($data, JSON_UNESCAPED_UNICODE));
-
 		$response = $this->guzzle->post($this->apiBaseUrl . $path, [
 			'auth' => [
 				$this->login,
